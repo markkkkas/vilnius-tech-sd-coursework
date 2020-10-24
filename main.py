@@ -1,5 +1,6 @@
-from models.game import Game
+from models.window import Window
 
-if __name__ == '__main__':
-    game = Game(8, 8)
-    game.start_new_game()
+if __name__ == "__main__":
+    game_window = Window()
+    game_window.resizable(0, 0)
+    game_window.mainloop()
