@@ -1,9 +1,9 @@
 class Checker:
-    def __init__(self, row, column, color):
-        self.color = color
-        self.row = row
-        self.column = column
-        self.is_queen = False
+    def __init__(self, row: int, column: int, color: str) -> None:
+        self.row: int = row
+        self.column: int = column
+        self.color: str = color
+        self.is_queen: bool = False
 
-    def upgrade_to_queen(self):
+    def upgrade_to_queen(self) -> None:
         self.is_queen = True
