@@ -7,8 +7,6 @@ class Window(tk.Tk):
     def __init__(self, *args, **kwargs) -> None:
         tk.Tk.__init__(self, *args, **kwargs)
 
-        print(*args, **kwargs)
-
         self.rows: int = 8
         self.columns: int = 8
 
