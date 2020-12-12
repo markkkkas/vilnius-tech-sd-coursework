@@ -11,7 +11,7 @@ class Window(tk.Tk):
         self.columns: int = 8
         self.checker_radius: int = 5
 
-        self.game: Game = Game()
+        self.game: Game = Game(self.rows, self.columns)
 
         self.active_window: tk.Canvas = tk.Canvas(
             self,
