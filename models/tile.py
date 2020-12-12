@@ -4,7 +4,7 @@ from typing import Union, List
 
 
 class Tile:
-    tile_colors: List[str] = ['lightcyan2', 'black']
+    tile_colors: List[str] = ["lightcyan2", "black"]
 
     def __init__(self, row, column, color) -> None:
         self.row: int = row
