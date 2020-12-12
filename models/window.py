@@ -36,17 +36,17 @@ class Window(tk.Tk):
                 y2 = y1 + cellheight
 
                 tile.gui_tile = self.active_window.create_rectangle(
-                    x1, y1, x2, y2, fill=tile.color, tags="rect"
+                    x1, y1, x2, y2, fill=tile.get_color(), tags="rect"
                 )
 
                 if tile.has_checker():
-                    if tile.checker.is_queen:
+                    if tile.get_checker().is_queen():
                         _checker = self.active_window.create_oval(
                             x1 + 5,
                             y1 + 5,
                             x2 - 5,
                             y2 - 5,
-                            fill=tile.checker.color,
+                            fill=tile.get_checker().get_color(),
                             width=5,
                         )
                         self.active_window.tag_bind(
@@ -58,7 +58,11 @@ class Window(tk.Tk):
                         )
                     else:
                         _checker = self.active_window.create_oval(
-                            x1 + 5, y1 + 5, x2 - 5, y2 - 5, fill=tile.checker.color
+                            x1 + 5,
+                            y1 + 5,
+                            x2 - 5,
+                            y2 - 5,
+                            fill=tile.get_checker().get_color(),
                         )
                         self.active_window.tag_bind(
                             _checker,
@@ -85,7 +89,7 @@ class Window(tk.Tk):
             ]
             self.game.move_checker(row, column)
             self.active_window.itemconfigure(
-                selected_tile.gui_tile, fill=selected_tile.color
+                selected_tile.gui_tile, fill=selected_tile.get_color()
             )
             self.render_game()
         else:

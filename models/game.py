@@ -19,7 +19,7 @@ class Game:
                     r_index, c_index, Tile.tile_colors[(r_index + c_index) % 2]
                 )
 
-                if tile.color == Tile.tile_colors[1]:
+                if tile.get_color() == Tile.tile_colors[1]:
                     if r_index in range(0, 3):
                         checker: Checker = Checker(r_index, c_index, "white")
                         tile.add_checker(checker)
@@ -39,9 +39,9 @@ class Game:
 
     def set_selected(self, row: int, col: int) -> bool:
         if self.board[row][col].has_checker():
-            checker = self.board[row][col].checker
+            checker = self.board[row][col].get_checker()
 
-            if checker.color == self.players[self.turn]:
+            if checker.get_color() == self.players[self.turn]:
                 self.selected = (row, col)
                 return True
             else:
@@ -55,8 +55,8 @@ class Game:
         cur_row: Union[None, int] = self.selected[0]
         cur_col: Union[None, int] = self.selected[1]
 
-        checker = self.board[cur_row][cur_col].checker
-        if checker.is_queen:
+        checker = self.board[cur_row][cur_col].get_checker()
+        if checker.is_queen():
             max_valid_moves = [
                 (cur_row + i, cur_col + j) for i in [-1, 1] for j in [-1, 1]
             ]
@@ -104,7 +104,10 @@ class Game:
             tile: Tile = self.board[int((cur_row + pos[0]) // 2)][
                 int((cur_col + pos[1]) // 2)
             ]
-            if tile.has_checker() and tile.checker.color != checker.color:
+            if (
+                tile.has_checker()
+                and tile.get_checker().get_color() != checker.get_color()
+            ):
                 new_valid.append(pos)
 
         max_valid_attacks = new_valid
@@ -116,12 +119,12 @@ class Game:
             moved_piece.row = row
             moved_piece.col = col
 
-            if moved_piece.color == self.players[0]:
+            if moved_piece.get_color() == self.players[0]:
                 if moved_piece.row == 0:
-                    moved_piece.is_queen = True
-            elif moved_piece.color == self.players[1]:
+                    moved_piece.upgrade_to_queen()
+            elif moved_piece.get_color() == self.players[1]:
                 if moved_piece.row == 7:
-                    moved_piece.is_queen = True
+                    moved_piece.upgrade_to_queen()
 
             self.board[row][col].add_checker(moved_piece)
             self.set_next_turn()
@@ -132,12 +135,12 @@ class Game:
             moved_piece.row = row
             moved_piece.col = col
 
-            if moved_piece.color == self.players[0]:
+            if moved_piece.get_color() == self.players[0]:
                 if moved_piece.row == 0:
-                    moved_piece.is_queen = True
-            elif moved_piece.color == self.players[1]:
+                    moved_piece.upgrade_to_queen()
+            elif moved_piece.get_color() == self.players[1]:
                 if moved_piece.row == 7:
-                    moved_piece.is_queen = True
+                    moved_piece.upgrade_to_queen()
 
             self.board[row][col].add_checker(moved_piece)
             self.board[int((row + cur_row) // 2)][
