@@ -1,5 +1,5 @@
-from .tile import Tile
-from .checker import Checker
+from models.tile import Tile
+from models.checker import Checker
 
 from typing import List, Tuple, Optional
 
